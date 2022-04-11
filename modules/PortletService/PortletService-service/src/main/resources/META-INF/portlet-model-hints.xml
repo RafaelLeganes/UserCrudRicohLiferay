@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="PortletService.model.Usuario">
+		<field name="uuid" type="String" />
+		<field name="usuarioId" type="long" />
+		<field name="nombre" type="String" />
+		<field name="apellidos" type="String" />
+		<field name="fechaNacimiento" type="Date" />
+		<field name="createDate" type="Date" />
+		<field name="correo" type="String" />
+	</model>
+</model-hints>

@@ -1,0 +1,4 @@
+Bundle-Name: PorletCrud
+Bundle-SymbolicName: PorletCrud
+Bundle-Version: 1.0.0
+Export-Package: PorletCrud.constants

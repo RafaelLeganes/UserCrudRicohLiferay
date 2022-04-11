@@ -1,0 +1,10 @@
+Bundle-Name: PortletService-api
+Bundle-SymbolicName: PortletService.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	PortletService.exception,\
+	PortletService.model,\
+	PortletService.service,\
+	PortletService.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../PortletService-service/service.xml
