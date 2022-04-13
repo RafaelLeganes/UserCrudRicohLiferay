@@ -1,0 +1,71 @@
+.badge {
+	@include clay-badge-variant($cadmin-badge);
+}
+
+.badge-item {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	justify-content: center;
+	min-height: 0;
+	position: relative;
+	text-align: left;
+
+	a {
+		display: inline-flex;
+	}
+
+	.btn-unstyled {
+		color: inherit;
+		display: inline-flex;
+	}
+
+	.close {
+		@include clay-close($cadmin-badge-close);
+	}
+
+	.lexicon-icon {
+		height: $cadmin-badge-lexicon-icon-height;
+		margin-top: $cadmin-badge-lexicon-icon-margin-top;
+		width: $cadmin-badge-lexicon-icon-width;
+	}
+}
+
+.badge-item-expand {
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: $cadmin-badge-item-expand-min-width;
+	word-wrap: break-word;
+
+	a {
+		flex-direction: column;
+	}
+}
+
+.badge-item-before {
+	margin-right: $cadmin-badge-item-spacer-x;
+}
+
+.badge-item-after {
+	margin-left: $cadmin-badge-item-spacer-x;
+}
+
+// Quick fix for badges in buttons
+
+.btn .badge {
+	margin-right: 0;
+	position: relative;
+	top: -1px;
+}
+
+// Badge Variants
+
+@each $cadmin-color, $cadmin-value in $cadmin-badge-palette {
+	%badge-#{$cadmin-color} {
+		@include clay-badge-variant($cadmin-value);
+	}
+
+	.badge-#{$cadmin-color} {
+		@extend %badge-#{$cadmin-color} !optional;
+	}
+}

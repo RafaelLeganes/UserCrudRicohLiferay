@@ -1,0 +1,149 @@
+.btn {
+	@include clay-button-variant($cadmin-btn);
+}
+
+fieldset:disabled a.btn {
+	$btn-disabled: setter(map-get($cadmin-btn, disabled), ());
+
+	@include clay-css($btn-disabled);
+
+	&:focus {
+		@include clay-css(setter(map-get($btn-disabled, focus), ()));
+	}
+
+	&:active {
+		@include clay-css(setter(map-get($btn-disabled, active), ()));
+	}
+}
+
+// Button Sizes
+
+%clay-btn-lg {
+	@include clay-button-variant($cadmin-btn-lg);
+}
+
+.btn-lg {
+	@extend %clay-btn-lg !optional;
+}
+
+%clay-btn-sm {
+	@include clay-button-variant($cadmin-btn-sm);
+}
+
+.btn-sm {
+	@extend %clay-btn-sm !optional;
+}
+
+// Button Block
+
+.btn-block {
+	display: block;
+	width: 100%;
+
+	+ .btn-block {
+		margin-top: $cadmin-btn-block-spacing-y;
+	}
+}
+
+// Specificity overrides
+
+input[type='submit'],
+input[type='reset'],
+input[type='button'] {
+	&.btn-block {
+		width: 100%;
+	}
+}
+
+// Button Unstyled
+
+%btn-unstyled {
+	@include clay-button-variant($cadmin-btn-unstyled);
+}
+
+.btn-unstyled {
+	@extend %btn-unstyled;
+}
+
+// Button Monospaced
+
+.btn-monospaced {
+	@include clay-button-variant($cadmin-btn-monospaced);
+
+	&.btn .lexicon-icon {
+		margin-top: 0;
+	}
+}
+
+%clay-btn-monospaced-lg {
+	@include clay-button-variant($cadmin-btn-monospaced-lg);
+}
+
+.btn-monospaced.btn-lg {
+	@extend %clay-btn-monospaced-lg !optional;
+}
+
+%clay-btn-monospaced-sm {
+	@include clay-button-variant($cadmin-btn-monospaced-sm);
+}
+
+.btn-monospaced.btn-sm {
+	@extend %clay-btn-monospaced-sm !optional;
+}
+
+// Button Variants
+
+@each $cadmin-color, $cadmin-value in $cadmin-btn-palette {
+	%btn-#{$cadmin-color} {
+		@include clay-button-variant($cadmin-value);
+	}
+
+	.btn-#{$cadmin-color} {
+		@extend %btn-#{$cadmin-color} !optional;
+	}
+
+	%btn-#{$cadmin-color}-focus {
+		background-color: map-get($cadmin-value, focus-bg);
+		border-color: map-get($cadmin-value, focus-border-color);
+		box-shadow: map-get($cadmin-value, focus-box-shadow);
+		color: map-get($cadmin-value, focus-color);
+	}
+}
+
+// Button Outline Variants
+
+@each $cadmin-color, $cadmin-value in $cadmin-btn-outline-palette {
+	%btn-outline-#{$cadmin-color} {
+		@include clay-button-variant($cadmin-value);
+	}
+
+	.btn-outline-#{$cadmin-color} {
+		@extend %btn-outline-#{$cadmin-color} !optional;
+	}
+
+	%btn-outline-#{$cadmin-color}-focus {
+		background-color: map-get($cadmin-value, focus-bg);
+		border-color: map-get($cadmin-value, focus-border-color);
+		box-shadow: map-get($cadmin-value, focus-box-shadow);
+		color: map-get($cadmin-value, focus-color);
+	}
+}
+
+.btn-outline-borderless {
+	@include clay-button-variant($cadmin-btn-outline-borderless);
+}
+
+.btn-outline-borderless:not(:disabled):not(.disabled):active {
+	border-color: transparent;
+}
+
+.show > .btn-outline-borderless.dropdown-toggle {
+	border-color: transparent;
+}
+
+// Loading Icons with Buttons
+
+.btn .loading-animation {
+	font-size: 1em;
+	margin-top: $cadmin-inline-item-lexicon-icon-margin-top;
+}

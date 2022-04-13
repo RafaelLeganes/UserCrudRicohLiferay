@@ -1,0 +1,79 @@
+.label {
+	@include clay-label-variant($cadmin-label);
+}
+
+.label-dismissible {
+	@include clay-css($cadmin-label-dismissible);
+}
+
+.label-item {
+	@include clay-css($cadmin-label-item);
+
+	a {
+		@include clay-link(setter(map-get($cadmin-label-item, link), ()));
+	}
+
+	.btn-unstyled {
+		@include clay-button-variant(
+			setter(map-get($cadmin-label-item, btn-unstyled), ())
+		);
+	}
+
+	.close {
+		@include clay-close(setter(map-get($cadmin-label-item, close), ()));
+	}
+
+	.lexicon-icon {
+		@include clay-css(
+			setter(map-get($cadmin-label-item, lexicon-icon), ())
+		);
+	}
+
+	.text-truncate-inline {
+		@include clay-css(
+			setter(map-get($cadmin-label-item, text-truncate-inline), ())
+		);
+	}
+}
+
+.label-item-expand {
+	@include clay-css($cadmin-label-item-expand);
+
+	a {
+		@include clay-link(
+			setter(map-get($cadmin-label-item-expand, link), ())
+		);
+	}
+}
+
+.label-item-before {
+	@include clay-css($cadmin-label-item-before);
+}
+
+.label-item-after {
+	@include clay-css($cadmin-label-item-after);
+}
+
+// Label Sizes
+
+@each $cadmin-selector, $cadmin-value in $cadmin-label-sizes {
+	%#{$cadmin-selector} {
+		@include clay-label-variant($cadmin-value);
+	}
+
+	.#{$cadmin-selector} {
+		@extend %#{$cadmin-selector} !optional;
+	}
+}
+
+// Label Variants
+
+@each $cadmin-color, $cadmin-value in $cadmin-label-palette {
+	%label-#{$cadmin-color} {
+		@include clay-label-variant($cadmin-value);
+	}
+
+	.label-#{$cadmin-color} {
+		@extend %label-#{$cadmin-color} !optional;
+	}
+}

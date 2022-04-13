@@ -1,0 +1,37 @@
+$cadmin-loading-icon-font-size: 40px !default; // 40px
+
+$cadmin-loading-icon-font-size-sm: 20px !default; // 20px
+
+// Loading Icon Dotted
+
+$cadmin-loading-animation: () !default;
+$cadmin-loading-animation: map-deep-merge(
+	(
+		after: (
+			animation: 1.2s ease-out infinite,
+			animation-name: loading-animation,
+			border-radius: 50%,
+			color: $cadmin-gray-600,
+			content: '',
+			display: block,
+			height: 1em,
+			left: 0,
+			position: absolute,
+			top: 0,
+			transform: scale(0.33334),
+			width: 1em,
+		),
+	),
+	$cadmin-loading-animation
+);
+
+$cadmin-loading-animation-light: () !default;
+$cadmin-loading-animation-light: map-deep-merge(
+	(
+		after: (
+			animation-name: loading-animation-light,
+			color: $cadmin-white,
+		),
+	),
+	$cadmin-loading-animation-light
+);

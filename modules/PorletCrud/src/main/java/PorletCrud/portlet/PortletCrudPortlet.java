@@ -93,40 +93,49 @@ public class PortletCrudPortlet extends MVCPortlet {
 	@ProcessAction(name = "modifyUsuario")
 	public void modifyUsuario(ActionRequest request,
 			ActionResponse response)  throws IOException, PortletException {
-		String usuarioId= ParamUtil.getString(request,"mUsuarioId");
-		String nombre = ParamUtil.getString(request,"mNombre"+usuarioId);
-		String apellidos = ParamUtil.getString(request,"mApellidos"+usuarioId);
+		String usuarioId = ParamUtil.getString(request,"usuarioId");
+		String nombre = ParamUtil.getString(request,"nombre"+usuarioId);
+		String apellidos = ParamUtil.getString(request,"apellidos"+usuarioId);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date fechaNacimiento = ParamUtil.getDate(request, "mFechaNacimiento"+usuarioId,sdf);
-		String correo = ParamUtil.getString(request, "mCorreo"+usuarioId);
+		Date fechaNacimiento = ParamUtil.getDate(request, "fechaNacimiento"+usuarioId,sdf);
+		String correo = ParamUtil.getString(request, "correo"+usuarioId);
 		Usuario user = null;
-		try {
-			user = UsuarioLocalServiceUtil.getUsuario(Long.valueOf(ParamUtil.getString(request,"mUsuarioId")));
-			user.setNombre(nombre);
-			user.setApellidos(apellidos);
-			user.setFechaNacimiento(fechaNacimiento);
-			user.setCorreo(correo);
-			UsuarioLocalServiceUtil.updateUsuario(user);
-			log.info("User Created Successfully.");	
-		} catch (NumberFormatException | PortalException e) {
-			e.printStackTrace();
-			log.error("User Creation Failed.");
+		if(usuarioId.length()>0 && nombre.length()>0 && apellidos.length()>0 && correo.length()>0) {
+			try {
+				user = UsuarioLocalServiceUtil.getUsuario(Long.valueOf(ParamUtil.getString(request,"usuarioId")));
+				user.setNombre(nombre);
+				user.setApellidos(apellidos);
+				user.setFechaNacimiento(fechaNacimiento);
+				user.setCorreo(correo);
+				UsuarioLocalServiceUtil.updateUsuario(user);
+				log.info("User Modified Successfully.");	
+			} catch (NumberFormatException | PortalException e) {
+				e.printStackTrace();
+				log.error("User Modify Failed.");
+			}
 		}
-		getUsuarios(request,response);
+		List<Usuario> listaUsuarios = UsuarioLocalServiceUtil.getUsuarios(0,UsuarioLocalServiceUtil.getUsuariosCount());
+		request.setAttribute("listaUsuarios", listaUsuarios);
+		response.getRenderParameters().setValue("jspPage","/Modify.jsp");
 	}
 	
 	@ProcessAction(name = "deleteUsuario")
 	public void deleteUsuario(ActionRequest request,
 			ActionResponse response)  throws IOException, PortletException {
-		Long usuarioId = Long.valueOf(ParamUtil.getString(request,"usuarioId"));
-		try {
-			UsuarioLocalServiceUtil.deleteUsuario(usuarioId);
-			log.info("User Deleted Successfully.");	
-		} catch (PortalException e) {
-			e.printStackTrace();
-			log.error("User Delete Failed.");
+		String usuarioId = ParamUtil.getString(request,"usuarioId");
+		if(usuarioId.length()>0) {
+		Long lusuarioId = Long.valueOf(ParamUtil.getString(request,"usuarioId"));
+			try {
+				UsuarioLocalServiceUtil.deleteUsuario(lusuarioId);
+				log.info("User Deleted Successfully.");	
+			} catch (PortalException e) {
+				e.printStackTrace();
+				log.error("User Delete Failed.");
+			}
 		}
-		getUsuarios(request,response);
+		List<Usuario> listaUsuarios = UsuarioLocalServiceUtil.getUsuarios(0,UsuarioLocalServiceUtil.getUsuariosCount());
+		request.setAttribute("listaUsuarios", listaUsuarios);
+		response.getRenderParameters().setValue("jspPage","/Delete.jsp");
 	}
 		
     @Override
